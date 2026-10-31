@@ -1,7 +1,66 @@
-import {useEffect,useRef,useId} from 'react';
 import type {ReactNode} from 'react';
+import {useEffect, useId, useRef} from 'react';
 import {X} from 'lucide-react';
-export function Modal({open,onClose,title,children,className=''}:{open:boolean;onClose:()=>void;title:string;children:ReactNode;className?:string}){
-const ref=useRef<HTMLDivElement>(null);const titleId=useId();const closeRef=useRef(onClose);closeRef.current=onClose;
-useEffect(()=>{if(!open)return;const previous=document.activeElement as HTMLElement|null;const overflow=document.body.style.overflow;document.body.style.overflow='hidden';const el=ref.current;const focusables=()=>Array.from(el?.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex="0"]')||[]).filter(x=>x.getClientRects().length>0);const timer=setTimeout(()=>focusables()[0]?.focus(),0);function key(e:KeyboardEvent){if(e.key==='Escape'){e.preventDefault();closeRef.current()}if(e.key==='Tab'){const list=focusables();const first=list[0];const last=list[list.length-1];if(!first){e.preventDefault();el?.focus()}else if(e.shiftKey&&(document.activeElement===first||!el?.contains(document.activeElement))){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}document.addEventListener('keydown',key);return()=>{clearTimeout(timer);document.removeEventListener('keydown',key);document.body.style.overflow=overflow;previous?.focus()};},[open]);
-if(!open)return null;return <div className="modal-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)onClose()}}><div ref={ref} className={`modal ${className}`} role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1}><div className="modal-head"><h2 id={titleId}>{title}</h2><button className="icon-button" aria-label="Close dialog" onClick={onClose}><X size={22}/></button></div>{children}</div></div>}
+
+export function Modal({open, onClose, title, children, className = ''}: {
+    open: boolean;
+    onClose: () => void;
+    title: string;
+    children: ReactNode;
+    className?: string
+}) {
+    const ref = useRef<HTMLDivElement>(null);
+    const titleId = useId();
+    const closeRef = useRef(onClose);
+    closeRef.current = onClose;
+    useEffect(() => {
+        if (!open) return;
+        const previous = document.activeElement as HTMLElement | null;
+        const overflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        const el = ref.current;
+        const focusables = () => Array.from(el?.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex="0"]') || []).filter(x => x.getClientRects().length > 0);
+        const timer = setTimeout(() => focusables()[0]?.focus(), 0);
+
+        function key(e: KeyboardEvent) {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeRef.current()
+            }
+            if (e.key === 'Tab') {
+                const list = focusables();
+                const first = list[0];
+                const last = list[list.length - 1];
+                if (!first) {
+                    e.preventDefault();
+                    el?.focus()
+                } else if (e.shiftKey && (document.activeElement === first || !el?.contains(document.activeElement))) {
+                    e.preventDefault();
+                    last.focus()
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus()
+                }
+            }
+        }
+
+        document.addEventListener('keydown', key);
+        return () => {
+            clearTimeout(timer);
+            document.removeEventListener('keydown', key);
+            document.body.style.overflow = overflow;
+            previous?.focus()
+        };
+    }, [open]);
+    if (!open) return null;
+    return <div className="modal-backdrop" onMouseDown={e => {
+        if (e.target === e.currentTarget) onClose()
+    }}>
+        <div ref={ref} className={`modal ${className}`} role="dialog" aria-modal="true" aria-labelledby={titleId}
+             tabIndex={-1}>
+            <div className="modal-head"><h2 id={titleId}>{title}</h2>
+                <button className="icon-button" aria-label="Close dialog" onClick={onClose}><X size={22}/></button>
+            </div>
+            {children}</div>
+    </div>
+}

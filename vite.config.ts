@@ -1,4 +1,8 @@
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-export default defineConfig({plugins:[react(),tailwindcss()],server:{watch:{ignored:['**/*.tsbuildinfo','**/e2e/**','**/artifacts/**','**/test-results/**','**/scratch/**']}}});
+
+export default defineConfig({
+    plugins: [react(), tailwindcss()],
+    server: {watch: {ignored: ['**/*.tsbuildinfo', '**/e2e/**', '**/artifacts/**', '**/test-results/**', '**/scratch/**']}}
+});

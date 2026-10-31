@@ -1,2 +1,17 @@
-export const config = {telegramUsername:'LittleStarsShop', currency:'USD', freeShippingThreshold:12500, standardShipping:695, expressShipping:1495, coupon:'STAR10', couponPercent:10, couponMinimum:5000, taxRate:0, pageSize:12} as const;
-export const money=(cents:number)=>new Intl.NumberFormat('en-US',{style:'currency',currency:config.currency,maximumFractionDigits:cents%100===0?0:2}).format(cents/100);
+export const config = {
+    telegramUsername: 'LittleStarsShop',
+    currency: 'USD',
+    freeShippingThreshold: 12500,
+    standardShipping: 695,
+    expressShipping: 1495,
+    coupon: 'STAR10',
+    couponPercent: 10,
+    couponMinimum: 5000,
+    taxRate: 0,
+    pageSize: 12
+} as const;
+export const money = (cents: number) => new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: config.currency,
+    maximumFractionDigits: cents % 100 === 0 ? 0 : 2
+}).format(cents / 100);

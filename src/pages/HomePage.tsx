@@ -1,14 +1,97 @@
 import {Link} from 'react-router-dom';
-import {ArrowRight,ArrowUpRight,Truck,RefreshCcw,Leaf,Star} from 'lucide-react';
+import {ArrowRight, ArrowUpRight, Leaf, RefreshCcw, Star, Truck} from 'lucide-react';
 import {useStore} from '../features/cart/store';
 import {ProductCard} from '../components/ProductCard';
 import {Image} from '../components/Image';
 import {Newsletter} from '../components/Newsletter';
-export default function HomePage(){const {products,loading,error}=useStore();const arrivals=products.filter(p=>p.tags.includes('new arrivals')).slice(0,4);const bestsellers=products.filter(p=>p.featured).slice(4,8);return <>
-<section className="hero"><Image className="hero-image" src="/images/hero.jpg" alt="A sunlit floral dress and woven bag beside the sea" fetchPriority="high"/><div className="hero-shade"/><div className="container hero-content"><span className="hero-kicker"><span/> MADE FOR THE EVERYDAY</span><h1>Life’s little moments.<br/><em>Beautifully dressed.</em></h1><p>Thoughtfully chosen pieces for you and your little stars.<br className="desktop-break"/> Feel-good favorites, made to be lived in.</p><Link className="btn hero-button" to="/collections/new-arrivals">Shop the collection <ArrowRight size={18}/></Link><span className="hero-footnote">TIMELESS STYLE. EVERYDAY COMFORT.</span></div><div className="hero-number">THE EVERYDAY EDIT <span>01 / 03</span></div></section>
-<div className="brand-strip"><span>Thoughtfully chosen.</span><Star size={12}/><span>Beautifully made.</span><Star size={12}/><span>Yours to make memories in.</span></div>
-<section className="container section categories-section"><div className="section-heading"><div><p className="eyebrow">SOMETHING FOR EVERYONE</p><h2 className="section-title">Find your everyday.</h2></div><p className="section-description">Good style has a place in every wardrobe.</p></div><div className="category-grid">{[{name:'For her',label:'Women',slug:'women',image:'category-women.jpg',desc:'Effortless, in every way.'},{name:'For him',label:'Men',slug:'men',image:'category-men.jpg',desc:'The art of keeping it simple.'},{name:'For the little ones',label:'Kids',slug:'kids',image:'category-kids.jpg',desc:'For all their big adventures.'}].map(c=><Link key={c.slug} to={`/collections/${c.slug}`} className="category-card"><Image src={`/images/${c.image}`} alt={`${c.label} clothing collection`} loading="lazy"/><div className="category-shade"/><div className="category-caption"><div><span>{c.name}</span><h3>{c.label}</h3><p>{c.desc}</p></div><span className="round-arrow"><ArrowUpRight size={22}/></span></div></Link>)}</div></section>
-<section className="container section arrivals-section"><div className="section-heading"><div><p className="eyebrow">FRESH FINDS, FAMILIAR FEELING</p><h2 className="section-title">Meet your new favorites.</h2></div><Link className="text-link" to="/collections/new-arrivals">Shop new arrivals <ArrowRight size={17}/></Link></div>{loading?<p className="loading-message" role="status">Finding your new favorites…</p>:error?<p role="alert">{error}</p>:<div className="product-grid home-products">{(arrivals.length?arrivals:products.slice(0,4)).map(p=><ProductCard key={p.id} product={p}/>)}</div>}</section>
-<section className="collection-banner"><div className="collection-picture"><Image src="/images/collection.jpg" alt="Soft natural fabrics and relaxed linen silhouettes" loading="lazy"/><span className="image-caption">LESS, BUT LOVELIER.</span></div><div className="collection-copy"><Star className="small-star" size={33} strokeWidth={1.1}/><p className="eyebrow">THE SLOW DAYS COLLECTION</p><h2>A little softer.<br/>A little slower.<br/><em>A little more you.</em></h2><p>Easy layers. Natural textures. The pieces you reach for, again and again. A collection made for wherever the day takes you.</p><Link className="btn" to="/shop?collection=slow-days">Explore the edit <ArrowRight size={17}/></Link></div></section>
-<section className="container section bestsellers-section"><div className="section-heading"><div><p className="eyebrow">LOVED FOR A REASON</p><h2 className="section-title">The ones you keep coming back to.</h2></div><Link className="text-link" to="/shop?sort=featured">Shop best sellers <ArrowRight size={17}/></Link></div><div className="product-grid home-products">{(bestsellers.length?bestsellers:products.slice(0,4)).map(p=><ProductCard key={p.id} product={p}/>)}</div></section>
-<section className="benefits container"><div><Truck size={27} strokeWidth={1.25}/><h3>A little treat, on us</h3><p>Free standard shipping on orders $125+</p></div><div><RefreshCcw size={27} strokeWidth={1.25}/><h3>Room to change your mind</h3><p>Easy returns within 30 days</p></div><div><Leaf size={27} strokeWidth={1.25}/><h3>Thoughtfully chosen</h3><p>Quality, comfort, and a lasting place in your wardrobe</p></div></section><Newsletter/></>}
+
+export default function HomePage() {
+    const {products, loading, error} = useStore();
+    const arrivals = products.filter(p => p.tags.includes('new arrivals')).slice(0, 4);
+    const bestsellers = products.filter(p => p.featured).slice(4, 8);
+    return <>
+        <section className="hero"><Image className="hero-image" src="/images/hero.jpg"
+                                         alt="A sunlit floral dress and woven bag beside the sea" fetchPriority="high"/>
+            <div className="hero-shade"/>
+            <div className="container hero-content"><span className="hero-kicker"><span/> MADE FOR THE EVERYDAY</span>
+                <h1>Life’s little moments.<br/><em>Beautifully dressed.</em></h1><p>Thoughtfully chosen pieces for you
+                    and your little stars.<br className="desktop-break"/> Feel-good favorites, made to be lived in.</p>
+                <Link className="btn hero-button" to="/collections/new-arrivals">Shop the collection <ArrowRight
+                    size={18}/></Link><span className="hero-footnote">TIMELESS STYLE. EVERYDAY COMFORT.</span></div>
+            <div className="hero-number">THE EVERYDAY EDIT <span>01 / 03</span></div>
+        </section>
+        <div className="brand-strip"><span>Thoughtfully chosen.</span><Star
+            size={12}/><span>Beautifully made.</span><Star size={12}/><span>Yours to make memories in.</span></div>
+        <section className="container section categories-section">
+            <div className="section-heading">
+                <div><p className="eyebrow">SOMETHING FOR EVERYONE</p><h2 className="section-title">Find your
+                    everyday.</h2></div>
+                <p className="section-description">Good style has a place in every wardrobe.</p></div>
+            <div className="category-grid">{[{
+                name: 'For her',
+                label: 'Women',
+                slug: 'women',
+                image: 'category-women.jpg',
+                desc: 'Effortless, in every way.'
+            }, {
+                name: 'For him',
+                label: 'Men',
+                slug: 'men',
+                image: 'category-men.jpg',
+                desc: 'The art of keeping it simple.'
+            }, {
+                name: 'For the little ones',
+                label: 'Kids',
+                slug: 'kids',
+                image: 'category-kids.jpg',
+                desc: 'For all their big adventures.'
+            }].map(c => <Link key={c.slug} to={`/collections/${c.slug}`} className="category-card"><Image
+                src={`/images/${c.image}`} alt={`${c.label} clothing collection`} loading="lazy"/>
+                <div className="category-shade"/>
+                <div className="category-caption">
+                    <div><span>{c.name}</span><h3>{c.label}</h3><p>{c.desc}</p></div>
+                    <span className="round-arrow"><ArrowUpRight size={22}/></span></div>
+            </Link>)}</div>
+        </section>
+        <section className="container section arrivals-section">
+            <div className="section-heading">
+                <div><p className="eyebrow">FRESH FINDS, FAMILIAR FEELING</p><h2 className="section-title">Meet your new
+                    favorites.</h2></div>
+                <Link className="text-link" to="/collections/new-arrivals">Shop new arrivals <ArrowRight
+                    size={17}/></Link></div>
+            {loading ? <p className="loading-message" role="status">Finding your new favorites…</p> : error ?
+                <p role="alert">{error}</p> : <div
+                    className="product-grid home-products">{(arrivals.length ? arrivals : products.slice(0, 4)).map(p =>
+                    <ProductCard key={p.id} product={p}/>)}</div>}</section>
+        <section className="collection-banner">
+            <div className="collection-picture"><Image src="/images/collection.jpg"
+                                                       alt="Soft natural fabrics and relaxed linen silhouettes"
+                                                       loading="lazy"/><span className="image-caption">LESS, BUT LOVELIER.</span>
+            </div>
+            <div className="collection-copy"><Star className="small-star" size={33} strokeWidth={1.1}/><p
+                className="eyebrow">THE SLOW DAYS COLLECTION</p><h2>A little softer.<br/>A little slower.<br/><em>A
+                little more you.</em></h2><p>Easy layers. Natural textures. The pieces you reach for, again and again. A
+                collection made for wherever the day takes you.</p><Link className="btn"
+                                                                         to="/shop?collection=slow-days">Explore the
+                edit <ArrowRight size={17}/></Link></div>
+        </section>
+        <section className="container section bestsellers-section">
+            <div className="section-heading">
+                <div><p className="eyebrow">LOVED FOR A REASON</p><h2 className="section-title">The ones you keep coming
+                    back to.</h2></div>
+                <Link className="text-link" to="/shop?sort=featured">Shop best sellers <ArrowRight size={17}/></Link>
+            </div>
+            <div
+                className="product-grid home-products">{(bestsellers.length ? bestsellers : products.slice(0, 4)).map(p =>
+                <ProductCard key={p.id} product={p}/>)}</div>
+        </section>
+        <section className="benefits container">
+            <div><Truck size={27} strokeWidth={1.25}/><h3>A little treat, on us</h3><p>Free standard shipping on orders
+                $125+</p></div>
+            <div><RefreshCcw size={27} strokeWidth={1.25}/><h3>Room to change your mind</h3><p>Easy returns within 30
+                days</p></div>
+            <div><Leaf size={27} strokeWidth={1.25}/><h3>Thoughtfully chosen</h3><p>Quality, comfort, and a lasting
+                place in your wardrobe</p></div>
+        </section>
+        <Newsletter/></>
+}

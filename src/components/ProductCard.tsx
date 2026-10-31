@@ -1,7 +1,36 @@
 import {Link} from 'react-router-dom';
-import {Heart,ArrowUpRight} from 'lucide-react';
+import {ArrowUpRight, Heart} from 'lucide-react';
 import type {Product} from '../lib/types';
 import {money} from '../lib/config';
 import {useStore} from '../features/cart/store';
 import {Image} from './Image';
-export function ProductCard({product}:{product:Product}){const {wishlist,toggleWishlist}=useStore();const wished=wishlist.includes(product.id);return <article className="product-card"><div className="product-photo"><Link to={`/product/${product.slug}`} aria-label={`View ${product.name}`}><Image src={product.images[0]} alt={`${product.name} — illustrative clothing photograph`} loading="lazy"/></Link><div className="product-badges">{product.originalPrice?<span className="badge sale">Sale</span>:product.tags.includes('new arrivals')?<span className="badge">Just arrived</span>:null}</div><button className={`wish-button ${wished?'is-wished':''}`} aria-label={`${wished?'Remove':'Add'} ${product.name} ${wished?'from':'to'} wishlist`} aria-pressed={wished} onClick={()=>toggleWishlist(product.id)}><Heart size={18} fill={wished?'currentColor':'none'} strokeWidth={1.5}/></button><Link className="product-discover" to={`/product/${product.slug}`}>Discover the details <ArrowUpRight size={16}/></Link></div><div className="product-card-info"><div><p className="product-category">{product.category === 'kids'?'Little ones':product.category} · {product.collection.replaceAll('-', ' ')}</p><Link className="product-name" to={`/product/${product.slug}`}>{product.name}</Link></div><div className="product-prices"><span>{money(product.price)}</span>{product.originalPrice&&<del>{money(product.originalPrice)}</del>}</div></div><div className="product-swatches" aria-label="Available colors">{product.colors.map(c=><span key={c.name} style={{background:c.hex}} title={c.name}/>)}<small>{product.colors.length} colors</small></div></article>}
+
+export function ProductCard({product}: { product: Product }) {
+    const {wishlist, toggleWishlist} = useStore();
+    const wished = wishlist.includes(product.id);
+    return <article className="product-card">
+        <div className="product-photo"><Link to={`/product/${product.slug}`} aria-label={`View ${product.name}`}><Image
+            src={product.images[0]} alt={`${product.name} — illustrative clothing photograph`} loading="lazy"/></Link>
+            <div className="product-badges">{product.originalPrice ?
+                <span className="badge sale">Sale</span> : product.tags.includes('new arrivals') ?
+                    <span className="badge">Just arrived</span> : null}</div>
+            <button className={`wish-button ${wished ? 'is-wished' : ''}`}
+                    aria-label={`${wished ? 'Remove' : 'Add'} ${product.name} ${wished ? 'from' : 'to'} wishlist`}
+                    aria-pressed={wished} onClick={() => toggleWishlist(product.id)}><Heart size={18}
+                                                                                            fill={wished ? 'currentColor' : 'none'}
+                                                                                            strokeWidth={1.5}/></button>
+            <Link className="product-discover" to={`/product/${product.slug}`}>Discover the details <ArrowUpRight
+                size={16}/></Link></div>
+        <div className="product-card-info">
+            <div><p
+                className="product-category">{product.category === 'kids' ? 'Little ones' : product.category} · {product.collection.replaceAll('-', ' ')}</p>
+                <Link className="product-name" to={`/product/${product.slug}`}>{product.name}</Link></div>
+            <div className="product-prices"><span>{money(product.price)}</span>{product.originalPrice &&
+                <del>{money(product.originalPrice)}</del>}</div>
+        </div>
+        <div className="product-swatches" aria-label="Available colors">{product.colors.map(c => <span key={c.name}
+                                                                                                       style={{background: c.hex}}
+                                                                                                       title={c.name}/>)}<small>{product.colors.length} colors</small>
+        </div>
+    </article>
+}

@@ -1,58 +1,288 @@
-import {test,expect} from '@playwright/test';
 import type {Page} from '@playwright/test';
-const product='/product/the-everyday-linen-shirt';
-async function choose(page:Page){await page.goto(product);await page.getByRole('button',{name:'Color: Ivory',exact:true}).click();await page.getByRole('button',{name:'Size XS',exact:true}).click();}
-async function close(page:Page){await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);}
+import {expect, test} from '@playwright/test';
 
-test('catalog URL search, filters, sorting, pagination and back',async({page})=>{
- const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/shop');await expect(page.locator('.product-card')).toHaveCount(12);
- await page.getByRole('button',{name:'Next page'}).click();await expect(page).toHaveURL(/page=2/);await expect(page.locator('.product-card')).toHaveCount(12);await page.goBack();await expect(page).not.toHaveURL(/page=/);
- await page.getByRole('textbox',{name:'Search products'}).fill('linen');await page.getByRole('button',{name:'Submit product search'}).click();await expect(page).toHaveURL(/q=linen/);await expect(page.locator('.product-card').first()).toBeVisible();expect(await page.locator('.product-card').count()).toBeLessThan(12);
- await page.getByRole('combobox',{name:'Sort products'}).selectOption('price-asc');await expect(page).toHaveURL(/sort=price-asc/);await page.locator('.catalog-sidebar').getByRole('button',{name:'S',exact:true}).click();await expect(page).toHaveURL(/size=S/);await page.reload();await expect(page.locator('.catalog-sidebar').getByRole('button',{name:'S',exact:true})).toHaveAttribute('aria-pressed','true');
- await page.getByRole('button',{name:'Clear filters',exact:true}).click();await expect(page.locator('.product-card')).toHaveCount(12);await page.getByRole('textbox',{name:'Search products'}).fill('nothingmatchesxyz');await page.getByRole('button',{name:'Submit product search'}).click();await expect(page.getByRole('heading',{name:'No pieces found. Yet.'})).toBeVisible();expect(errors).toEqual([]);
+const product = '/product/the-everyday-linen-shirt';
+
+async function choose(page: Page) {
+    await page.goto(product);
+    await page.getByRole('button', {name: 'Color: Ivory', exact: true}).click();
+    await page.getByRole('button', {name: 'Size XS', exact: true}).click();
+}
+
+async function close(page: Page) {
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+}
+
+test('catalog URL search, filters, sorting, pagination and back', async ({page}) => {
+    const errors: string[] = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.goto('/shop');
+    await expect(page.locator('.product-card')).toHaveCount(12);
+    await page.getByRole('button', {name: 'Next page'}).click();
+    await expect(page).toHaveURL(/page=2/);
+    await expect(page.locator('.product-card')).toHaveCount(12);
+    await page.goBack();
+    await expect(page).not.toHaveURL(/page=/);
+    await page.getByRole('textbox', {name: 'Search products'}).fill('linen');
+    await page.getByRole('button', {name: 'Submit product search'}).click();
+    await expect(page).toHaveURL(/q=linen/);
+    await expect(page.locator('.product-card').first()).toBeVisible();
+    expect(await page.locator('.product-card').count()).toBeLessThan(12);
+    await page.getByRole('combobox', {name: 'Sort products'}).selectOption('price-asc');
+    await expect(page).toHaveURL(/sort=price-asc/);
+    await page.locator('.catalog-sidebar').getByRole('button', {name: 'S', exact: true}).click();
+    await expect(page).toHaveURL(/size=S/);
+    await page.reload();
+    await expect(page.locator('.catalog-sidebar').getByRole('button', {
+        name: 'S',
+        exact: true
+    })).toHaveAttribute('aria-pressed', 'true');
+    await page.getByRole('button', {name: 'Clear filters', exact: true}).click();
+    await expect(page.locator('.product-card')).toHaveCount(12);
+    await page.getByRole('textbox', {name: 'Search products'}).fill('nothingmatchesxyz');
+    await page.getByRole('button', {name: 'Submit product search'}).click();
+    await expect(page.getByRole('heading', {name: 'No pieces found. Yet.'})).toBeVisible();
+    expect(errors).toEqual([]);
 });
 
-test('complete purchase validates checkout and persists matching order/history',async({page})=>{
- const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await choose(page);await page.getByRole('button',{name:'Add to bag',exact:true}).click();await expect(page.getByRole('dialog',{name:'Your shopping bag'})).toBeVisible();await page.getByRole('link',{name:'View your bag',exact:true}).click();await expect(page).toHaveURL('/cart');
- await page.getByRole('button',{name:'Increase quantity of The Everyday Linen Shirt'}).click();await expect(page.getByRole('button',{name:'Increase quantity of The Everyday Linen Shirt'})).toBeDisabled();await page.getByRole('textbox',{name:'Have a little treat?'}).fill('BAD');await page.getByRole('button',{name:'Apply',exact:true}).click();await expect(page.getByRole('alert')).toBeVisible();await page.getByRole('textbox',{name:'Have a little treat?'}).fill('STAR10');await page.getByRole('button',{name:'Apply',exact:true}).click();await expect(page.locator('.summary-grand-total')).toContainText('$122.40');
- await page.getByRole('link',{name:'Continue to checkout'}).click();await page.getByRole('button',{name:'Place demo order'}).click();await expect(page.getByText('This field is required.')).toHaveCount(7);
- for(const [label,value] of [['Email address','test@example.com'],['First name','Avery'],['Last name','Demo'],['Street address','123 Sample Street'],['City','New York'],['State','NY'],['ZIP code','10001']])await page.getByRole('textbox',{name:label,exact:true}).fill(value);
- await page.getByLabel('Express delivery').check();await expect(page.locator('.summary-grand-total')).toContainText('$137.35');await page.getByLabel('Standard delivery').check();await expect(page.locator('.summary-grand-total')).toContainText('$122.40');await page.getByRole('button',{name:'Place demo order'}).click();await expect(page).toHaveURL(/order-confirmation/);await expect(page.getByRole('heading',{name:'Good things are on their way.'})).toBeVisible();await expect(page.locator('.summary-grand-total')).toContainText('$122.40');
- const orders=await page.evaluate(()=>JSON.parse(localStorage.getItem('little-stars:v1:orders')||'[]'));expect(orders).toHaveLength(1);expect(orders[0].totals.total).toBe(12240);const telegram=page.locator('.confirmation-delivery .telegram-link');await expect(telegram).toHaveAttribute('target','_blank');const telegramHref=new URL((await telegram.getAttribute('href'))!);expect(telegramHref.hostname).toBe('t.me');expect(telegramHref.pathname).toBe('/LittleStarsShop');expect(telegramHref.searchParams.get('text')).toContain(orders[0].reference);expect(telegramHref.searchParams.get('text')).not.toContain('test@example.com');expect(telegramHref.searchParams.get('text')).not.toContain('123 Sample Street');expect(orders[0].items[0].quantity).toBe(2);expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('little-stars:v1:cart')||'[]'))).toEqual([]);await page.reload();await expect(page.getByRole('heading',{name:'Good things are on their way.'})).toBeVisible();await page.getByRole('link',{name:'View order history'}).click();await page.getByRole('button',{name:'Explore demo account'}).click();await expect(page.locator('.history-order')).toHaveCount(1);await page.getByRole('button',{name:'View order',exact:true}).click();await expect(page.getByRole('dialog')).toContainText(orders[0].reference);expect(errors).toEqual([]);
+test('complete purchase validates checkout and persists matching order/history', async ({page}) => {
+    const errors: string[] = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await choose(page);
+    await page.getByRole('button', {name: 'Add to bag', exact: true}).click();
+    await expect(page.getByRole('dialog', {name: 'Your shopping bag'})).toBeVisible();
+    await page.getByRole('link', {name: 'View your bag', exact: true}).click();
+    await expect(page).toHaveURL('/cart');
+    await page.getByRole('button', {name: 'Increase quantity of The Everyday Linen Shirt'}).click();
+    await expect(page.getByRole('button', {name: 'Increase quantity of The Everyday Linen Shirt'})).toBeDisabled();
+    await page.getByRole('textbox', {name: 'Have a little treat?'}).fill('BAD');
+    await page.getByRole('button', {name: 'Apply', exact: true}).click();
+    await expect(page.getByRole('alert')).toBeVisible();
+    await page.getByRole('textbox', {name: 'Have a little treat?'}).fill('STAR10');
+    await page.getByRole('button', {name: 'Apply', exact: true}).click();
+    await expect(page.locator('.summary-grand-total')).toContainText('$122.40');
+    await page.getByRole('link', {name: 'Continue to checkout'}).click();
+    await page.getByRole('button', {name: 'Place demo order'}).click();
+    await expect(page.getByText('This field is required.')).toHaveCount(7);
+    for (const [label, value] of [['Email address', 'test@example.com'], ['First name', 'Avery'], ['Last name', 'Demo'], ['Street address', '123 Sample Street'], ['City', 'New York'], ['State', 'NY'], ['ZIP code', '10001']]) await page.getByRole('textbox', {
+        name: label,
+        exact: true
+    }).fill(value);
+    await page.getByLabel('Express delivery').check();
+    await expect(page.locator('.summary-grand-total')).toContainText('$137.35');
+    await page.getByLabel('Standard delivery').check();
+    await expect(page.locator('.summary-grand-total')).toContainText('$122.40');
+    await page.getByRole('button', {name: 'Place demo order'}).click();
+    await expect(page).toHaveURL(/order-confirmation/);
+    await expect(page.getByRole('heading', {name: 'Good things are on their way.'})).toBeVisible();
+    await expect(page.locator('.summary-grand-total')).toContainText('$122.40');
+    const orders = await page.evaluate(() => JSON.parse(localStorage.getItem('little-stars:v1:orders') || '[]'));
+    expect(orders).toHaveLength(1);
+    expect(orders[0].totals.total).toBe(12240);
+    const telegram = page.locator('.confirmation-delivery .telegram-link');
+    await expect(telegram).toHaveAttribute('target', '_blank');
+    const telegramHref = new URL((await telegram.getAttribute('href'))!);
+    expect(telegramHref.hostname).toBe('t.me');
+    expect(telegramHref.pathname).toBe('/LittleStarsShop');
+    expect(telegramHref.searchParams.get('text')).toContain(orders[0].reference);
+    expect(telegramHref.searchParams.get('text')).not.toContain('test@example.com');
+    expect(telegramHref.searchParams.get('text')).not.toContain('123 Sample Street');
+    expect(orders[0].items[0].quantity).toBe(2);
+    expect(await page.evaluate(() => JSON.parse(localStorage.getItem('little-stars:v1:cart') || '[]'))).toEqual([]);
+    await page.reload();
+    await expect(page.getByRole('heading', {name: 'Good things are on their way.'})).toBeVisible();
+    await page.getByRole('link', {name: 'View order history'}).click();
+    await page.getByRole('button', {name: 'Explore demo account'}).click();
+    await expect(page.locator('.history-order')).toHaveCount(1);
+    await page.getByRole('button', {name: 'View order', exact: true}).click();
+    await expect(page.getByRole('dialog')).toContainText(orders[0].reference);
+    expect(errors).toEqual([]);
 });
 
-test('required options, variant identity and stock limits',async({page})=>{
- await page.goto(product);await page.getByRole('button',{name:'Add to bag',exact:true}).click();await expect(page.getByRole('alert')).toContainText('choose a color and size');await page.getByRole('button',{name:'Color: Ivory',exact:true}).click();await page.getByRole('button',{name:'Size XS',exact:true}).click();await page.getByRole('button',{name:'Increase quantity',exact:true}).click();await expect(page.getByRole('button',{name:'Increase quantity',exact:true})).toBeDisabled();await page.getByRole('button',{name:'Add to bag',exact:true}).click();await close(page);await page.getByRole('button',{name:'Color: Sage',exact:true}).click();await expect(page.getByRole('button',{name:'Size XL, sold out',exact:true})).toBeDisabled();await page.getByRole('button',{name:'Add to bag',exact:true}).click();await close(page);await page.goto('/cart');await expect(page.locator('.cart-line')).toHaveCount(2);const lines=await page.evaluate(()=>JSON.parse(localStorage.getItem('little-stars:v1:cart')||'[]'));expect(lines.map((x:{quantity:number})=>x.quantity)).toEqual([2,1]);await page.goto('/product/little-stars-quilted-vest');await expect(page.getByRole('button',{name:'Sold out',exact:true})).toBeDisabled();
+test('required options, variant identity and stock limits', async ({page}) => {
+    await page.goto(product);
+    await page.getByRole('button', {name: 'Add to bag', exact: true}).click();
+    await expect(page.getByRole('alert')).toContainText('choose a color and size');
+    await page.getByRole('button', {name: 'Color: Ivory', exact: true}).click();
+    await page.getByRole('button', {name: 'Size XS', exact: true}).click();
+    await page.getByRole('button', {name: 'Increase quantity', exact: true}).click();
+    await expect(page.getByRole('button', {name: 'Increase quantity', exact: true})).toBeDisabled();
+    await page.getByRole('button', {name: 'Add to bag', exact: true}).click();
+    await close(page);
+    await page.getByRole('button', {name: 'Color: Sage', exact: true}).click();
+    await expect(page.getByRole('button', {name: 'Size XL, sold out', exact: true})).toBeDisabled();
+    await page.getByRole('button', {name: 'Add to bag', exact: true}).click();
+    await close(page);
+    await page.goto('/cart');
+    await expect(page.locator('.cart-line')).toHaveCount(2);
+    const lines = await page.evaluate(() => JSON.parse(localStorage.getItem('little-stars:v1:cart') || '[]'));
+    expect(lines.map((x: { quantity: number }) => x.quantity)).toEqual([2, 1]);
+    await page.goto('/product/little-stars-quilted-vest');
+    await expect(page.getByRole('button', {name: 'Sold out', exact: true})).toBeDisabled();
 });
 
-test('wishlist, cart, announcement persistence and empty states',async({page})=>{
- await choose(page);await page.getByRole('button',{name:'Add to wishlist',exact:true}).click();await page.getByRole('button',{name:'Add to bag',exact:true}).click();await close(page);await page.getByRole('button',{name:'Dismiss announcement'}).click();await page.reload();await expect(page.getByRole('button',{name:'Remove from wishlist',exact:true})).toHaveAttribute('aria-pressed','true');await expect(page.getByRole('button',{name:'Dismiss announcement'})).toHaveCount(0);await page.goto('/wishlist');await expect(page.locator('.product-card')).toHaveCount(1);await page.getByRole('button',{name:/Remove The Everyday Linen Shirt from wishlist/}).click();await expect(page.getByRole('heading',{name:'A little room for favorites.'})).toBeVisible();await page.goto('/cart');await expect(page.locator('.cart-line')).toHaveCount(1);await page.getByRole('button',{name:/^Remove The Everyday Linen Shirt, Ivory, size XS$/}).click();await expect(page.getByRole('heading',{name:'Your bag is empty',exact:true})).toBeVisible();await page.goto('/checkout');await expect(page.getByRole('heading',{name:'Your next favorite is waiting'})).toBeVisible();
+test('wishlist, cart, announcement persistence and empty states', async ({page}) => {
+    await choose(page);
+    await page.getByRole('button', {name: 'Add to wishlist', exact: true}).click();
+    await page.getByRole('button', {name: 'Add to bag', exact: true}).click();
+    await close(page);
+    await page.getByRole('button', {name: 'Dismiss announcement'}).click();
+    await page.reload();
+    await expect(page.getByRole('button', {
+        name: 'Remove from wishlist',
+        exact: true
+    })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('button', {name: 'Dismiss announcement'})).toHaveCount(0);
+    await page.goto('/wishlist');
+    await expect(page.locator('.product-card')).toHaveCount(1);
+    await page.getByRole('button', {name: /Remove The Everyday Linen Shirt from wishlist/}).click();
+    await expect(page.getByRole('heading', {name: 'A little room for favorites.'})).toBeVisible();
+    await page.goto('/cart');
+    await expect(page.locator('.cart-line')).toHaveCount(1);
+    await page.getByRole('button', {name: /^Remove The Everyday Linen Shirt, Ivory, size XS$/}).click();
+    await expect(page.getByRole('heading', {name: 'Your bag is empty', exact: true})).toBeVisible();
+    await page.goto('/checkout');
+    await expect(page.getByRole('heading', {name: 'Your next favorite is waiting'})).toBeVisible();
 });
 
-test('malformed storage and useful 404',async({page})=>{
- const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await page.evaluate(()=>{localStorage.setItem('little-stars:v1:cart','not-json');localStorage.setItem('little-stars:v1:wishlist','{"bad":true}');localStorage.setItem('little-stars:v1:profile','null');localStorage.setItem('little-stars:v1:orders','[{"id":4}]');});await page.goto('/cart');await expect(page.getByRole('heading',{name:'Your bag is empty',exact:true})).toBeVisible();await page.goto('/wishlist');await expect(page.getByRole('heading',{name:'A little room for favorites.'})).toBeVisible();await page.goto('/does-not-exist');await expect(page.getByRole('heading',{name:'Let’s find your way back.'})).toBeVisible();expect(errors).toEqual([]);
+test('malformed storage and useful 404', async ({page}) => {
+    const errors: string[] = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.goto('/');
+    await page.evaluate(() => {
+        localStorage.setItem('little-stars:v1:cart', 'not-json');
+        localStorage.setItem('little-stars:v1:wishlist', '{"bad":true}');
+        localStorage.setItem('little-stars:v1:profile', 'null');
+        localStorage.setItem('little-stars:v1:orders', '[{"id":4}]');
+    });
+    await page.goto('/cart');
+    await expect(page.getByRole('heading', {name: 'Your bag is empty', exact: true})).toBeVisible();
+    await page.goto('/wishlist');
+    await expect(page.getByRole('heading', {name: 'A little room for favorites.'})).toBeVisible();
+    await page.goto('/does-not-exist');
+    await expect(page.getByRole('heading', {name: 'Let’s find your way back.'})).toBeVisible();
+    expect(errors).toEqual([]);
 });
 
-test('modal focus, Escape and focus restoration',async({page})=>{
- await page.goto('/');const search=page.getByRole('button',{name:'Search products',exact:true});await search.click();const dialog=page.getByRole('dialog');await expect(dialog).toBeVisible();await page.keyboard.press('Shift+Tab');expect(await dialog.evaluate(el=>el.contains(document.activeElement))).toBe(true);await page.keyboard.press('Tab');expect(await dialog.evaluate(el=>el.contains(document.activeElement))).toBe(true);await close(page);await expect(search).toBeFocused();
+test('modal focus, Escape and focus restoration', async ({page}) => {
+    await page.goto('/');
+    const search = page.getByRole('button', {name: 'Search products', exact: true});
+    await search.click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press('Shift+Tab');
+    expect(await dialog.evaluate(el => el.contains(document.activeElement))).toBe(true);
+    await page.keyboard.press('Tab');
+    expect(await dialog.evaluate(el => el.contains(document.activeElement))).toBe(true);
+    await close(page);
+    await expect(search).toBeFocused();
 });
 
-test('mobile navigation, filter drawer and horizontal overflow',async({page})=>{
- await page.setViewportSize({width:390,height:844});await page.goto('/');await page.getByRole('button',{name:'Open navigation'}).click();await expect(page.getByRole('dialog')).toBeVisible();await page.getByRole('navigation',{name:'Mobile navigation'}).getByRole('link',{name:'Women',exact:true}).click();await expect(page).toHaveURL('/collections/women');await expect(page.getByRole('dialog')).toHaveCount(0);await page.getByRole('button',{name:'Filters',exact:true}).click();await page.getByRole('dialog').getByRole('button',{name:'M',exact:true}).click();await page.getByRole('button',{name:/Show \d+ pieces/}).click();await expect(page).toHaveURL(/size=M/);for(const path of ['/', '/shop',product,'/cart','/checkout','/contact','/account']){await page.goto(path);await page.waitForTimeout(250);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),path).toBe(true);}
+test('mobile navigation, filter drawer and horizontal overflow', async ({page}) => {
+    await page.setViewportSize({width: 390, height: 844});
+    await page.goto('/');
+    await page.getByRole('button', {name: 'Open navigation'}).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.getByRole('navigation', {name: 'Mobile navigation'}).getByRole('link', {
+        name: 'Women',
+        exact: true
+    }).click();
+    await expect(page).toHaveURL('/collections/women');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await page.getByRole('button', {name: 'Filters', exact: true}).click();
+    await page.getByRole('dialog').getByRole('button', {name: 'M', exact: true}).click();
+    await page.getByRole('button', {name: /Show \d+ pieces/}).click();
+    await expect(page).toHaveURL(/size=M/);
+    for (const path of ['/', '/shop', product, '/cart', '/checkout', '/contact', '/account']) {
+        await page.goto(path);
+        await page.waitForTimeout(250);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), path).toBe(true);
+    }
 });
 
-test('desktop and mobile home screenshots',async({page})=>{
- await page.goto('/');await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){window.scrollTo(0,y);await new Promise(resolve=>setTimeout(resolve,70));}window.scrollTo(0,0)});await page.waitForTimeout(500);await page.screenshot({path:'artifacts/home-desktop.png',fullPage:true});await page.setViewportSize({width:390,height:844});await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){window.scrollTo(0,y);await new Promise(resolve=>setTimeout(resolve,70));}window.scrollTo(0,0)});await page.waitForTimeout(300);await page.screenshot({path:'artifacts/home-mobile.png',fullPage:true});
+test('desktop and mobile home screenshots', async ({page}) => {
+    await page.goto('/');
+    await page.evaluate(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += 700) {
+            window.scrollTo(0, y);
+            await new Promise(resolve => setTimeout(resolve, 70));
+        }
+        window.scrollTo(0, 0)
+    });
+    await page.waitForTimeout(500);
+    await page.screenshot({path: 'artifacts/home-desktop.png', fullPage: true});
+    await page.setViewportSize({width: 390, height: 844});
+    await page.evaluate(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += 700) {
+            window.scrollTo(0, y);
+            await new Promise(resolve => setTimeout(resolve, 70));
+        }
+        window.scrollTo(0, 0)
+    });
+    await page.waitForTimeout(300);
+    await page.screenshot({path: 'artifacts/home-mobile.png', fullPage: true});
 });
 
-test('contact and newsletter validate and simulate success; profile edits persist and sign out',async({page})=>{
- const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto('/contact');await page.getByRole('button',{name:'Send demo message',exact:true}).click();await expect(page.getByRole('textbox',{name:'Your name',exact:true})).toHaveAttribute('aria-invalid','true');await expect(page.getByText('Please write at least 10 characters.')).toBeVisible();await page.getByRole('textbox',{name:'Your name',exact:true}).fill('Jordan Sample');await page.getByRole('textbox',{name:'Email address',exact:true}).fill('jordan@example.com');await page.getByRole('combobox',{name:'What’s on your mind?'}).selectOption('demo');await page.getByRole('textbox',{name:'Your message',exact:true}).fill('I am trying this lovely demo contact form.');await page.getByRole('button',{name:'Send demo message',exact:true}).click();await expect(page.getByRole('heading',{name:'A little hello, received.'})).toBeVisible();await expect(page.getByRole('status')).toContainText('hasn’t been sent or saved');
- await page.goto('/');await page.getByRole('button',{name:'Subscribe to newsletter'}).click();await expect(page.getByRole('textbox',{name:'Your email address',exact:true})).toHaveAttribute('aria-invalid','true');await page.getByRole('textbox',{name:'Your email address',exact:true}).fill('jordan@example.com');await page.getByRole('button',{name:'Subscribe to newsletter'}).click();await expect(page.locator('.newsletter-success')).toContainText('You’re on the list.');await expect(page.locator('.newsletter-success')).toContainText('hasn’t been sent or stored');
- await page.goto('/account');await page.getByRole('button',{name:'Explore demo account'}).click();await page.getByRole('textbox',{name:'First name',exact:true}).fill('Jordan');await page.getByRole('textbox',{name:'Last name',exact:true}).fill('Sample');await page.getByRole('textbox',{name:'Email address',exact:true}).fill('invalid');await page.getByRole('button',{name:'Save changes',exact:true}).click();await expect(page.getByText('Enter a valid email address.')).toBeVisible();await page.getByRole('textbox',{name:'Email address',exact:true}).fill('jordan@example.com');await page.getByRole('button',{name:'Save changes',exact:true}).click();await expect(page.locator('.success-message')).toContainText('Profile saved on this device.');await page.reload();await expect(page.getByRole('heading',{name:'Hello, Jordan.'})).toBeVisible();await expect(page.getByRole('textbox',{name:'Email address',exact:true})).toHaveValue('jordan@example.com');await page.getByRole('button',{name:'Demo sign out',exact:true}).click();await expect(page.getByRole('button',{name:'Explore demo account'})).toBeVisible();expect(errors).toEqual([]);
+test('contact and newsletter validate and simulate success; profile edits persist and sign out', async ({page}) => {
+    const errors: string[] = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.goto('/contact');
+    await page.getByRole('button', {name: 'Send demo message', exact: true}).click();
+    await expect(page.getByRole('textbox', {name: 'Your name', exact: true})).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.getByText('Please write at least 10 characters.')).toBeVisible();
+    await page.getByRole('textbox', {name: 'Your name', exact: true}).fill('Jordan Sample');
+    await page.getByRole('textbox', {name: 'Email address', exact: true}).fill('jordan@example.com');
+    await page.getByRole('combobox', {name: 'What’s on your mind?'}).selectOption('demo');
+    await page.getByRole('textbox', {
+        name: 'Your message',
+        exact: true
+    }).fill('I am trying this lovely demo contact form.');
+    await page.getByRole('button', {name: 'Send demo message', exact: true}).click();
+    await expect(page.getByRole('heading', {name: 'A little hello, received.'})).toBeVisible();
+    await expect(page.getByRole('status')).toContainText('hasn’t been sent or saved');
+    await page.goto('/');
+    await page.getByRole('button', {name: 'Subscribe to newsletter'}).click();
+    await expect(page.getByRole('textbox', {
+        name: 'Your email address',
+        exact: true
+    })).toHaveAttribute('aria-invalid', 'true');
+    await page.getByRole('textbox', {name: 'Your email address', exact: true}).fill('jordan@example.com');
+    await page.getByRole('button', {name: 'Subscribe to newsletter'}).click();
+    await expect(page.locator('.newsletter-success')).toContainText('You’re on the list.');
+    await expect(page.locator('.newsletter-success')).toContainText('hasn’t been sent or stored');
+    await page.goto('/account');
+    await page.getByRole('button', {name: 'Explore demo account'}).click();
+    await page.getByRole('textbox', {name: 'First name', exact: true}).fill('Jordan');
+    await page.getByRole('textbox', {name: 'Last name', exact: true}).fill('Sample');
+    await page.getByRole('textbox', {name: 'Email address', exact: true}).fill('invalid');
+    await page.getByRole('button', {name: 'Save changes', exact: true}).click();
+    await expect(page.getByText('Enter a valid email address.')).toBeVisible();
+    await page.getByRole('textbox', {name: 'Email address', exact: true}).fill('jordan@example.com');
+    await page.getByRole('button', {name: 'Save changes', exact: true}).click();
+    await expect(page.locator('.success-message')).toContainText('Profile saved on this device.');
+    await page.reload();
+    await expect(page.getByRole('heading', {name: 'Hello, Jordan.'})).toBeVisible();
+    await expect(page.getByRole('textbox', {name: 'Email address', exact: true})).toHaveValue('jordan@example.com');
+    await page.getByRole('button', {name: 'Demo sign out', exact: true}).click();
+    await expect(page.getByRole('button', {name: 'Explore demo account'})).toBeVisible();
+    expect(errors).toEqual([]);
 });
 
 
-test('Telegram contacts target the shop and draft selected bag details on mobile',async({page})=>{
- await page.setViewportSize({width:390,height:844});await choose(page);await page.getByRole('button',{name:'Add to bag',exact:true}).click();const drawer=page.getByRole('dialog',{name:'Your shopping bag'});const chat=drawer.locator('.telegram-link');await expect(chat).toBeVisible();const href=new URL((await chat.getAttribute('href'))!);expect(href.origin+href.pathname).toBe('https://t.me/LittleStarsShop');expect(href.searchParams.get('text')).toContain('1 × The Everyday Linen Shirt — Ivory / XS');await expect(chat).toHaveAttribute('rel','noopener noreferrer');await close(page);await page.goto('/contact');await expect(page.locator('.contact-aside .telegram-link')).toHaveAttribute('href','https://t.me/LittleStarsShop');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+test('Telegram contacts target the shop and draft selected bag details on mobile', async ({page}) => {
+    await page.setViewportSize({width: 390, height: 844});
+    await choose(page);
+    await page.getByRole('button', {name: 'Add to bag', exact: true}).click();
+    const drawer = page.getByRole('dialog', {name: 'Your shopping bag'});
+    const chat = drawer.locator('.telegram-link');
+    await expect(chat).toBeVisible();
+    const href = new URL((await chat.getAttribute('href'))!);
+    expect(href.origin + href.pathname).toBe('https://t.me/LittleStarsShop');
+    expect(href.searchParams.get('text')).toContain('1 × The Everyday Linen Shirt — Ivory / XS');
+    await expect(chat).toHaveAttribute('rel', 'noopener noreferrer');
+    await close(page);
+    await page.goto('/contact');
+    await expect(page.locator('.contact-aside .telegram-link')).toHaveAttribute('href', 'https://t.me/LittleStarsShop');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
