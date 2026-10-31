@@ -107,8 +107,7 @@ function Contact() {
 
     async function submit(event: FormEvent) {
         event.preventDefault();
-        const next: Partial<Record<keyof ContactForm,string
-        >>= {};
+        const next: Partial<Record<keyof ContactForm,string>>= {};
         if (!form.name.trim()) next.name = 'Please enter your name.';
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = 'Please enter a valid email address.';
         if (!form.subject) next.subject = 'Please choose a topic.';

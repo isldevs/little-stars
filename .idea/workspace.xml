@@ -1,56 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36ab6e15-0cf1-4499-941a-92148d3aa09a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/storefront.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e2e/storefront.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/themes.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e2e/themes.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eslint.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playwright.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/playwright.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/fonts.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/fonts.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/fallback.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/fallback.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/theme-init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/theme-init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Image.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Image.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Modal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Newsletter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Newsletter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TelegramContact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TelegramContact.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/account/AccountPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/account/AccountPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/cart/CartPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cart/CartPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/cart/store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cart/store.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/catalog/CatalogPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/catalog/CatalogPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/catalog/ProductPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/catalog/ProductPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/catalog/ProductSelection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/catalog/ProductSelection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/checkout/CheckoutPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/checkout/CheckoutPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/checkout/ConfirmationPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/checkout/ConfirmationPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/theme/ThemeProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/theme/ThemeProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/theme/ThemeSwitcher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/theme/ThemeSwitcher.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/commerce.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/commerce.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/pricing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/pricing.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/storage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/telegram.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/telegram.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/theme.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/theme.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/HomePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/HomePage.tsx" afterDir="false" />
+    <list default="true" id="36ab6e15-0cf1-4499-941a-92148d3aa09a" name="Changes" comment="chore: reformat code">
       <change beforePath="$PROJECT_DIR$/src/pages/InfoPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/InfoPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/NotFoundPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/NotFoundPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/WishlistPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/WishlistPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/account.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/account.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/catalog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/catalog.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/catalogData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/catalogData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/checkout.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/checkout.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/themes.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/themes.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vitest.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,29 +13,41 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="MIXED" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "isldevs"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/isldevs/little-stars.git",
+    "accountId": "9aa500f4-5018-4dd4-9083-528e42bf4f17"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.6097146251694257" />
-      <entry key="MS500" value="4.730105016937532" />
-      <entry key="S2" value="8.817575563297702" />
-      <entry key="S5" value="10.91829476213959" />
-      <entry key="S10" value="11.870685539430804" />
-      <entry key="S30" value="12.60147395126348" />
-      <entry key="S60" value="12.803993840717252" />
-      <entry key="M2" value="13.375187664891605" />
-      <entry key="M5" value="19.527312138039132" />
-      <entry key="M10" value="28.766501651282063" />
-      <entry key="M15" value="34.140199714823126" />
-      <entry key="M30" value="41.34302897441733" />
-      <entry key="H1" value="45.818075454013595" />
-      <entry key="H2" value="48.314064707888534" />
-      <entry key="H4" value="49.632408174912904" />
-      <entry key="D1" value="50.768570563760356" />
-      <entry key="W1" value="50.96685197144049" />
+      <entry key="MS100" value="1.0000008245375216" />
+      <entry key="MS500" value="1.0764688646723903" />
+      <entry key="S2" value="2.5730900061398856" />
+      <entry key="S5" value="4.905148589773298" />
+      <entry key="S10" value="6.522904696051723" />
+      <entry key="S30" value="8.051444179764855" />
+      <entry key="S60" value="8.511685540843054" />
+      <entry key="M2" value="8.969521147129417" />
+      <entry key="M5" value="12.674982834882128" />
+      <entry key="M10" value="21.599375403564988" />
+      <entry key="M15" value="28.7087672072152" />
+      <entry key="M30" value="40.422288448663615" />
+      <entry key="H1" value="48.9465773076887" />
+      <entry key="H2" value="54.11284508700924" />
+      <entry key="H4" value="56.96007783047751" />
+      <entry key="D1" value="59.479399955581385" />
+      <entry key="W1" value="59.92527939639522" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -105,23 +69,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.5698023955507996" />
-      <entry key="MS500" value="4.706053483803011" />
-      <entry key="S2" value="8.806052001044447" />
-      <entry key="S5" value="10.912584126860203" />
-      <entry key="S10" value="11.867582275687322" />
-      <entry key="S30" value="12.60037626594738" />
-      <entry key="S60" value="12.803436015180534" />
-      <entry key="M2" value="13.374885333876273" />
-      <entry key="M5" value="19.527071460674172" />
-      <entry key="M10" value="28.7662875130601" />
-      <entry key="M15" value="34.14001999708928" />
-      <entry key="M30" value="41.3429141277373" />
-      <entry key="H1" value="45.81801021864411" />
-      <entry key="H2" value="48.31402990456934" />
-      <entry key="H4" value="49.63239019510943" />
-      <entry key="D1" value="50.7685674840022" />
-      <entry key="W1" value="50.96685152940153" />
+      <entry key="MS100" value="0.9592649213148692" />
+      <entry key="MS500" value="1.0677177013889891" />
+      <entry key="S2" value="2.567812511353125" />
+      <entry key="S5" value="4.900493283271364" />
+      <entry key="S10" value="6.519572081158213" />
+      <entry key="S30" value="8.049996940462622" />
+      <entry key="S60" value="8.510910012492678" />
+      <entry key="M2" value="8.969114690026828" />
+      <entry key="M5" value="12.674772270682947" />
+      <entry key="M10" value="21.59919864367486" />
+      <entry key="M15" value="28.708608088585734" />
+      <entry key="M30" value="40.42217345301477" />
+      <entry key="H1" value="48.94650657340145" />
+      <entry key="H2" value="54.11280565925982" />
+      <entry key="H4" value="56.96005699100712" />
+      <entry key="D1" value="59.47939631574935" />
+      <entry key="W1" value="59.92527887219944" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
@@ -148,6 +112,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_interpreter_path": "C:/Users/sivlay.yi/AppData/Roaming/JetBrains/WebStorm2026.2/node/versions/26.13.0/node",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "C:\\Users\\sivlay.yi\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external"
   }
 }]]></component>
@@ -165,8 +130,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1793426098478</updated>
-      <workItem from="1793426100246" duration="1504000" />
+      <workItem from="1793426100246" duration="1771000" />
     </task>
+    <task id="LOCAL-00001" summary="chore: reformat code">
+      <option name="closed" value="true" />
+      <created>1793427653083</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1793427653084</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,5 +156,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="chore: reformat code" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: reformat code" />
   </component>
 </project>
