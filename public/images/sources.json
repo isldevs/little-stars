@@ -1,0 +1,263 @@
+[
+  {
+    "asset": "category-women",
+    "source": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "category-men",
+    "source": "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "category-kids",
+    "source": "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1133
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-1",
+    "source": "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-2",
+    "source": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      850
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-3",
+    "source": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1220
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-4",
+    "source": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-5",
+    "source": "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-6",
+    "source": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1273
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-7",
+    "source": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-8",
+    "source": "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-9",
+    "source": "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      680
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-10",
+    "source": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      850
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-11",
+    "source": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-12",
+    "source": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-13",
+    "source": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1133
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-14",
+    "source": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      567
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-15",
+    "source": "https://images.unsplash.com/photo-1614495039368-525273956716?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1275
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-16",
+    "source": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1274
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-17",
+    "source": "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1133
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-18",
+    "source": "https://images.unsplash.com/photo-1503919005314-30d93d07d823?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      567
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-19",
+    "source": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1643
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-20",
+    "source": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1643
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-21",
+    "source": "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1009
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-22",
+    "source": "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      1133
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-23",
+    "source": "https://images.unsplash.com/photo-1503919005314-30d93d07d823?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      567
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "product-24",
+    "source": "https://images.unsplash.com/photo-1503919005314-30d93d07d823?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      850,
+      567
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "hero",
+    "source": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      1800,
+      1197
+    ],
+    "status": "ok"
+  },
+  {
+    "asset": "collection",
+    "source": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=850&q=82",
+    "dimensions": [
+      1800,
+      1200
+    ],
+    "status": "ok"
+  }
+]
